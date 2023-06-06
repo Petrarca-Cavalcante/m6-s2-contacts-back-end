@@ -22,12 +22,13 @@ const createSessionService = async ({ email, password }: IUserSession) => {
   if (!matchPassword) {
     throw new AppError("Invalid email or password", 403);
   }
+  
 
   const token = jwt.sign({ ...user }, process.env.SECRET_KEY as string, {
     subject: user.id,
-    expiresIn: "5h",
+    expiresIn: "24h",
   });
-
+  
   return {token,user};
 };
 

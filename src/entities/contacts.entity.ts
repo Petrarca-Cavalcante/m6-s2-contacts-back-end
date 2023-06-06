@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 
 
@@ -6,12 +6,19 @@ import { User } from "./user.entity";
 export class Contacts {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+  
   @Column()
   name: string;
+
   @Column("text", { array: true })
   emails: string[];
+
   @Column("text", { array: true })
   telefones: string[];
-  @ManyToOne(() => User, (user) => user.contacts, {onDelete: "CASCADE"})
+
+  @ManyToOne(() => User, (user) => user.contacts, { onDelete: "CASCADE" })
   user: User;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
