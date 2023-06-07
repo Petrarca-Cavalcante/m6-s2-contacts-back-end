@@ -164,7 +164,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 | 400 FORBIDDEN   | "message": "Invalid email or password"     |
 -------------------------------------------------------------------------------------------------
 
-### 1 **Criação de Usuário**
+### 1 **Criação de Usuário
 
 ### `/user`
 
