@@ -103,6 +103,67 @@ npm run dev
 | createdAt  | timestamp   | Data de criação do contato                      |
 -----------------------------------------------------------------------------
 
+
+### 1 **Login
+
+### `/login`
+
+### Exemplo de Request:
+```
+POST /login
+Host: localhost:3000
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+  	"email": "pedro@mail.com",
+	"password": "1234"
+}
+```
+
+### Validação:
+```javascript
+{
+  	"email": string/email,
+	"password": string
+}
+```
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+```
+200 OK
+```
+
+```json
+{
+	"token": JWT é gerado.,
+	"user": {
+		"id": "e008b289-a559-4a1b-b939-2206f0eb6b77",
+		"name": "BAM",
+		"email": "aaa@mail.com",
+		"telefones": [
+			"11111"
+		],
+		"isActive": true,
+		"isAdmin": false,
+		"createdAt": "2023-06-07T01:05:07.866Z",
+		"updatedAt": "2023-06-07T01:05:07.866Z",
+		"contacts": []
+	}
+}
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição				       |
+|-----------------|--------------------------------------------|
+| 400 BAD REQUEST | "message": " "field" is a required field"  |
+| 400 FORBIDDEN   | "message": "Invalid email or password"     |
+-------------------------------------------------------------------------------------------------
+
 ### 1 **Criação de Usuário**
 
 ### `/user`
@@ -121,15 +182,16 @@ Content-type: application/json
 	"name": "André",
 	"telefones": ["85911112222",
 	"email": "andre@mail.com",
-  "password": "1234"
+  	"password": "1234"
 }
 ```
 
 ### Validação:
 ```javascript
 nome: string,
-email: string,
-telefones: string[]
+email: string/email,
+telefones: string[],
+password: string
 ```
 OBS.: Chaves não presentes no schema serão removidas.
 
@@ -157,7 +219,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ### Possíveis Erros:
 | Código do Erro | Descrição |
 |----------------|-----------|
-| 400 BAD REQUEST| "message": "This email has already been used" |
+| 400 BAD REQUEST| "message": "User aready exists" |
 
 -------------------------------------------------------------------------------------------------------
 
@@ -204,7 +266,7 @@ Vazio
 
 ------------------------------------------------------------------------------------------------------------
 
-### 2 **Atualizando Usuário Logado
+### 3 **Atualizando Usuário Logado
 
 ### `/user`
 
@@ -237,11 +299,9 @@ Content-type: application/json
 	"telefones": [
 		"85911112222"
 	],
-	"isActive": true,
-	"isAdmin": false,
+	"contacts": [],
 	"createdAt": "2023-05-26T17:01:11.931Z",
-	"updatedAt": "2023-05-26T17:01:34.102Z",
-	"contacts": []
+	"updatedAt": "2023-05-26T17:01:34.102Z"
 }
 ```
 
@@ -283,4 +343,179 @@ NO BODY
 |-------------------|-----------|
 | 404 NOT FOUND     | "message": "User not found" |
 | 401 UNATHORIZED   | "message": "invalid token"  | 
----
+------------------------------------------------------------------------------------------------------------------
+
+### 1 **Criação de Contato**
+
+### `/contacts`
+
+### Exemplo de Request:
+```
+POST /contacts
+Host: localhost:3000
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+	"emails": ["antony@gmail.com"],
+	"name": "Antony",
+	"telefones": ["85911112222"]
+}
+```
+
+### Validação:
+```javascript
+	"emails": string[],
+	"name": string,
+	"telefones": string[]
+```
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+```
+201 Created
+```
+
+```json
+{
+	"id": "e876af68-fc98-4490-a469-16457563e23d",
+	"name": "Antony",
+	"emails": [
+		"pedroa@gmail.com"
+	],
+	"telefones": [
+		"85911112222"
+	],
+	"createdAt": "2023-06-07T16:52:08.775Z"
+}
+```
+
+### Possíveis Erros:
+| Código do Erro    | Descrição |
+|-------------------|-----------|
+| 400 BAD REQUEST   | "message": " 'x' is a required field" |
+| 401 UNATHORIZED   | "message": "invalid token"  	    | 
+
+-------------------------------------------------------------------------------------------------------
+
+### 2 **Listando Contatos do Usuário Logado
+
+### `/contacts`
+
+### Exemplo de Request:
+```
+GET /contacts
+Host: localhost:3000
+Authorization: "Bearer: 52c66e0a-5d99-45a7-b457-b69899a4ea39"
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+200 OK
+
+[
+	{
+		"id": "e876af68-fc98-4490-a469-16457563e23d",
+		"name": "Antony",
+		"emails": [
+			"pedroa@gmail.com"
+		],
+		"telefones": [
+			"85911112222"
+		],
+		"createdAt": "2023-06-07T16:52:08.775Z"
+	}
+]
+```
+
+### Possíveis Erros:
+| Código do Erro  | Descrição                  |
+|-----------------|----------------------------|
+| 401 UNATHORIZED | "message": "invalid token" |
+
+------------------------------------------------------------------------------------------------------------
+
+### 3 **Atualizando Contato
+
+### `/contacts/:id`
+
+### Exemplo de Request:
+```
+PATCH /contacts/e876af68-fc98-4490-a469-16457563e23d
+Host: localhost:3000
+Authorization: "Bearer: "52c66e0a-5d99-45a7-b457-b69899a4ea39"
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+{
+{
+	"emails": ["joao@mail.com"],
+	"name": "Joao",
+	"telefones": ["85911112222"]
+}
+}
+```
+
+### Exemplo de Response:
+```
+200 OK
+```
+{
+	"id": "99272fd8-edee-46cd-9606-8dcecc5f63bf",
+	"name": "Antony",
+	"emails": ["joao@mail.com"],
+	"telefones": ["85911112222"],
+	"createdAt": "2023-06-07T16:52:08.775Z"
+}
+```
+
+### Possíveis Erros:
+| Código do Erro | Descrição                                      |
+|----------------|------------------------------------------------|
+| 400 BAD REQUEST | "message": """campo" must be a `tipo do campo` type, but the final value was: "valor enviado" "                  |
+| 401 UNATHORIZED | "message": "invalid token"                    |
+
+-----------------------------------------------------------------------------------------------------------------
+
+``` 
+### 4 **Deletando Contato
+
+### `/contacts/:id`
+
+### Exemplo de Request:
+```
+DELETE /user/e876af68-fc98-4490-a469-16457563e23d
+Host: localhost:3000
+Authorization: "Bearer: "52c66e0a-5d99-45a7-b457-b69899a4ea39"
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+```json
+Vazio
+```
+
+### Exemplo de Response:
+```
+204 NO CONTENT
+```
+```json
+NO BODY
+```
+
+### Possíveis Erros:
+| Código do Erro    | Descrição |
+|-------------------|-----------|
+| 404 NOT FOUND     | "message": "Contact not found or user does not own the contact" |
+| 401 UNATHORIZED   | "message": "invalid token"  | 
