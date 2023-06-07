@@ -470,7 +470,7 @@ Content-type: application/json
 ### Exemplo de Response:
 ```
 200 OK
-```
+
 {
 	"id": "99272fd8-edee-46cd-9606-8dcecc5f63bf",
 	"name": "Antony",
