@@ -433,7 +433,8 @@ Vazio
 			"85911112222"
 		],
 		"createdAt": "2023-06-07T16:52:08.775Z"
-	}
+	},
+	... demais contatos 
 ]
 ```
 
@@ -459,11 +460,9 @@ Content-type: application/json
 ### Corpo da Requisição:
 ```json
 {
-{
 	"emails": ["joao@mail.com"],
 	"name": "Joao",
 	"telefones": ["85911112222"]
-}
 }
 ```
 
