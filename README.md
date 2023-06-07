@@ -28,7 +28,7 @@
 
 #### Link do repositório do Front-End
 
-####https://github.com/Petrarca-Cavalcante/m6-s2-contacts-front-en#d
+#### https://github.com/Petrarca-Cavalcante/m6-s2-contacts-front-en#d
 
 ---
 ### 2.1 Instalando Dependências
