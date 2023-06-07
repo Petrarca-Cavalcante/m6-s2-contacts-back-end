@@ -2,12 +2,12 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 
 import { AppError } from "../../errors/appError";
-import { IUserUpdateRequest, IUserCreateResponse } from "../../interfaces/user";
+import { IUserUpdateRequest, IUserCreateResponse, IUserUpdateResponse } from "../../interfaces/user";
 
 const updateUserService = async (
   id: string,
   { email, password, name, telefones }: IUserUpdateRequest
-): Promise<IUserCreateResponse> => {
+): Promise<IUserUpdateResponse> => {
   const userRepository = AppDataSource.getRepository(User);
 
   const findUser = await userRepository.findOneBy({
@@ -32,7 +32,16 @@ const updateUserService = async (
     id,
   });
 
-  return user!;
+  const updatedUser:IUserUpdateResponse = {
+    id: user!.id,
+    name: user!.name,
+    email: user!.email,
+    telefones: user!.telefones,
+    contacts: user!.contacts,
+    createdAt: user!.createdAt,
+    updatedAt: user!.updatedAt,
+  }
+  return updatedUser;
 };
 
 export default updateUserService;

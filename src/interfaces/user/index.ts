@@ -26,5 +26,14 @@ export interface IUserUpdateRequest {
     telefones: string[] | undefined
 }
 
+export interface IUserUpdateResponse {
+    id: string
+    name: string | undefined
+    email: string | undefined
+    telefones: string[] | undefined
+    createdAt: Date
+    updatedAt: Date
+    contacts: Icontacts[]
+}
 
 
