@@ -25,6 +25,12 @@
 - Axios
 - yup
 
+
+#### Link do repositório do Front-End
+
+#### https://github.com/Petrarca-Cavalcante/m6-s2-contacts-front-en#d
+
+---
 ### 2.1 Instalando Dependências
 
 Clone os projetos em sua máquina e instale as dependências de cada um com o comando (deve ser feito em ambos):
