@@ -48,7 +48,26 @@ cp .env.example .env
 ```
 Configure as variáveis de ambiente com os dados do seu banco de dados pedidos no .env.
 
-### 2.3 Rodando As Aplicações
+### 2.3 Gerando/Rodando as migrações do Back-End
+
+Após isto, para fazer as migrações para seu banco de dados, rode este comando:
+```
+npm run typeorm migration:run -- -d src/data-source.ts
+```
+!!!
+Caso algum erro ocorra em razão das migrações, delete o arquivo de migrações localizado na 
+** src/migrations/* **
+Também apague as tables criadas no banco de dados 
+!!!
+E então gere e rode as migrações com os seguintes comandos
+
+```
+npm run typeorm migration:generate src/migrations/createTables -- -d src/data-source.ts
+-
+npm run typeorm migration:run -- -d src/data-source.ts
+```
+
+### 2.4 Rodando As Aplicações
 
 Para iniciar as aplicaçõe use comando (deve ser feito em cada aplicação):
 
